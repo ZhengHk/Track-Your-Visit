@@ -1,1 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        function loadQRCode() {
+            const storeName = document.getElementById("store_name").value;
+            const img = document.getElementById("qrcode");
+            img.setAttribute("src", "https://api.qrserver.com/v1/create-qr-code/?size=1024x1024&data=" + storeName);
+        }
+    </script>
 
+    Store:<br>
+    <input id="store_name" type="text"><br>
+    <button onclick="loadQRCode()">QR-Code laden</button><br>
+    <img id="qrcode"/>
+</body>
+</html>
