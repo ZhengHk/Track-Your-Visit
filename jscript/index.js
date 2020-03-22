@@ -125,6 +125,7 @@ function qrCodeGen() {
     userRef.get().then(function(doc) {
       user = doc.data();
       showQrCode(user);
+      showStoreInfo(db, user);
     }).catch(function(error) {
       console.log(error);
     });
@@ -137,6 +138,10 @@ function qrCodeGen() {
       telefon: "+49123456789",
       storeId: "123456789"
     });
+    showStoreInfo2({
+      adresse: "Mustermannstraße 1",
+      name: "Musterladen"
+    });
   }
 }
 
@@ -147,29 +152,6 @@ function showQrCode(user) {
   document.getElementById("em").innerText = "Email: "+user.email;
   document.getElementById("tele").innerText = "Telefon: "+user.telefon;
 
-  //document.getElementById("sadr").innerText = ""+;
-  //document.getElementById("").innerText = ""+;
-
-
-  /*document.getElementById("user_data").innerHTML =
-      "<table>" +
-      "<tr>" +
-      "<td>Vorname</td>" +
-      "<td>" + user.vorname + "</td>" +
-      "</tr>" +
-      "<tr>" +
-      "<td>Nachname</td>" +
-      "<td>" + user.nachname + "</td>" +
-      "</tr>" +
-      "<tr>" +
-      "<td>E-Mail</td>" +
-      "<td>" + user.email + "</td>" +
-      "</tr>" +
-      "<tr>" +
-      "<td>Telefon</td>" +
-      "<td>" + user.telefon + "</td>" +
-      "</tr>" +
-      "<table>";*/
   const qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + user.storeId;
   document.getElementById("qr_code").setAttribute("src", qrUrl);
 
@@ -179,4 +161,20 @@ function showQrCode(user) {
   downloadButton.setAttribute("download", qrUrl);
   downloadButton.innerHTML = "QR-Code herunterladen";
   document.getElementById("qr_code_download").append(downloadButton);
+}
+
+function showStoreInfo(db, user) {
+  const storeRef = db.collection("stores").doc(user.storeId);
+
+  storeRef.get().then(function(doc) {
+    var store = doc.data();
+    showStoreInfo2(store);
+  }).catch(function(error) {
+    console.log(error);
+  })
+}
+
+function showStoreInfo2(store) {
+  document.getElementById("adress1").innerText = store.adresse;
+  document.getElementById("store_name1").innerText = store.name;
 }
