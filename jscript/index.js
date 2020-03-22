@@ -186,3 +186,56 @@ function showStoreData(store) {
   document.getElementById("sadr").innerText = "Laden-Adresse: "+store.adresse;
   document.getElementById("sn").innerText = "Laden-Name: "+store.name;
 }
+
+function update() {
+  var email = document.getElementById("signup_email_field1").value;
+  var first = document.getElementById("first_name1").value;
+  var name = document.getElementById("last_name1").value;
+  var tele = document.getElementById("telefon_field").value;
+  var stname = document.getElementById("store_name1").value;
+  var adr = document.getElementById("adress1").value;
+
+  var user = firebase.auth().currentUser;
+  const db = firebase.firestore();
+  if (user != null) {
+    const uid = user.uid;
+    if(email !== ""){
+      db.collection("users").doc(""+uid).update({
+        email: email
+      });
+    }
+    if(first !== ""){
+      db.collection("users").doc(""+uid).update({
+        vorname: first
+      });
+    }
+    if(name !== ""){
+      db.collection("users").doc(""+uid).update({
+        nachname: name
+      });
+    }
+    if(tele !== ""){
+      db.collection("users").doc(""+uid).update({
+        telefon: tele
+      });
+    }
+
+    var stid = ...;
+    if(stname !== ""){
+      db.collection("stors").doc(""+stid).update({
+        name: stname
+      });
+    }
+    if(adr !== ""){
+      db.collection("stores").doc(""+stid).update({
+        adresse: adr
+      });
+    }
+  }
+
+}
+
+function updateDatabase(adr, mail, userId, name, tele, vorn, sadr, sn) {
+  writeUserData(adr, mail, userId, name, tele, vorn);
+  writeStoreData(sadr, sn);
+}
