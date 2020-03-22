@@ -163,4 +163,11 @@ function showQrCode(user) {
       "<table>";
   const qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + user.storeId;
   document.getElementById("qr_code").setAttribute("src", qrUrl);
+
+  // <a id="download" href="a.jpg" download="a.jpg">Download</a>
+  var downloadButton = document.createElement("a");
+  downloadButton.setAttribute("href", "qrUrl");
+  downloadButton.setAttribute("download", qrUrl);
+  downloadButton.innerHTML = "QR-Code herunterladen";
+  document.getElementById("qr_code_download").append(downloadButton);
 }
