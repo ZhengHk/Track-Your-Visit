@@ -259,13 +259,13 @@ function update() {
         db.collection("stores").doc(""+stid).update({
           name: stname
         });
-        document.getElementById("storename").value = "";
+        document.getElementById("store_name1").value = "";
       }
       if(adr !== ""){
         db.collection("stores").doc(""+stid).update({
           adresse: adr
         });
-        document.getElementById("storeadress").value = "";
+        document.getElementById("adress1").value = "";
       }
     }
 
