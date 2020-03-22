@@ -151,8 +151,8 @@ function qrCodeGen() {
 
     userRef.get().then(function(doc) {
       user = doc.data();
-      showQrCode(user);
       showStoreInfo(db, user);
+      showQrCode(user);
     }).catch(function(error) {
       console.log(error);
     });
@@ -193,19 +193,19 @@ function showQrCode(user) {
 }
 
 function showStoreInfo(db, user) {
-  const storeRef = db.collection("stores").doc(user.storeId);
-
-  storeRef.get().then(function(doc) {
+  db.collection("stores").doc(user.storeId).get().then(function(doc) {
     var store = doc.data();
+    console.log(store.adresse);
+    console.log(store.name);
     showStoreInfo2(store);
   }).catch(function(error) {
     console.log(error);
-  })
+  });
 }
 
 function showStoreInfo2(store) {
-  document.getElementById("sadr").innerText = store.adresse;
-  document.getElementById("sn").innerText = store.name;
+  document.getElementById("sadr").innerText = "Adresse: "+store.adresse;
+  document.getElementById("sn").innerText = "Laden-Name: "+store.name;
 }
 
 function showStoreData(store) {
