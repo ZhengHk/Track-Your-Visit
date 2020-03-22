@@ -195,8 +195,18 @@ function update() {
   var stname = document.getElementById("store_name1").value;
   var adr = document.getElementById("adress1").value;
 
-  var user = firebase.auth().currentUser;
+  var fbUser = firebase.auth().currentUser;
   const db = firebase.firestore();
+  const uid = fbUser.uid;
+  const userRef = db.collection("users").doc(uid + "");
+  var user;
+
+  userRef.get().then(function(doc) {
+    user = doc.data();
+  }).catch(function(error) {
+    console.log(error);
+  });
+
   if (user != null) {
     const uid = user.uid;
     if(email !== ""){
@@ -220,7 +230,7 @@ function update() {
       });
     }
 
-    var stid = ...;
+    var stid = user.storeId;
     if(stname !== ""){
       db.collection("stors").doc(""+stid).update({
         name: stname
