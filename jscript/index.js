@@ -74,10 +74,11 @@ function signup() {
       if(user != null){
 
         var user_id = user.uid;
-        var storeid = writeStoreData(adr, stname);
-        if(storeid != null) {
-          writeUserData(null, email, user_id, name, null, first, storeid);
-        }
+        writeUserData(null, email, user_id, name, null, first);
+        writeStoreDataToUser(adr, stname, user_id);
+        console.log(user_id);
+
+
       }
       else{
         window.alert("Ihre Daten konnten nicht gespeichert werden. Bitte ueberpruefen sie diese in ihrem Akkount!")
@@ -95,7 +96,7 @@ function signup() {
 
 }
 
-function writeUserData(adr, mail, userId, name, tele, vorn, storeid) {
+function writeUserData(adr, mail, userId, name, tele, vorn) {
   const db = firebase.firestore();
   db.collection("users").doc(userId).set({
     adresse: adr,
@@ -103,10 +104,30 @@ function writeUserData(adr, mail, userId, name, tele, vorn, storeid) {
     id: userId,
     nachname: name,
     telefon: tele,
-    vorname: vorn,
-    storeId: storeid
+    vorname: vorn
   });
 
+}
+
+function writeStoreDataToUser(adr, n, user_id) {
+  const db = firebase.firestore();
+  db.collection("stores").add({
+    adresse: adr,
+    name: n
+  }).then(function (result) {
+    console.log(result.id)
+    db.collection("users").doc(""+user_id).update({
+      storeId: result.id
+    }).then(function (res) {
+      console.log(res.storeId);
+    }).catch(function (error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ...
+      window.alert("Error : " + errorMessage);
+    });
+  })
 }
 
 function writeStoreData(adr, n) {
@@ -115,7 +136,8 @@ function writeStoreData(adr, n) {
     adresse: adr,
     name: n
   }).then(function (result) {
-        return result.uid;
+      console.log(result.id)
+      return result.id;
   })
 }
 
