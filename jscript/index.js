@@ -150,26 +150,6 @@ function showQrCode(user) {
   //document.getElementById("sadr").innerText = ""+;
   //document.getElementById("").innerText = ""+;
 
-
-  /*document.getElementById("user_data").innerHTML =
-      "<table>" +
-      "<tr>" +
-      "<td>Vorname</td>" +
-      "<td>" + user.vorname + "</td>" +
-      "</tr>" +
-      "<tr>" +
-      "<td>Nachname</td>" +
-      "<td>" + user.nachname + "</td>" +
-      "</tr>" +
-      "<tr>" +
-      "<td>E-Mail</td>" +
-      "<td>" + user.email + "</td>" +
-      "</tr>" +
-      "<tr>" +
-      "<td>Telefon</td>" +
-      "<td>" + user.telefon + "</td>" +
-      "</tr>" +
-      "<table>";*/
   const qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + user.storeId;
   document.getElementById("qr_code").setAttribute("src", qrUrl);
 
@@ -179,4 +159,9 @@ function showQrCode(user) {
   downloadButton.setAttribute("download", qrUrl);
   downloadButton.innerHTML = "QR-Code herunterladen";
   document.getElementById("qr_code_download").append(downloadButton);
+}
+
+function showStoreData(store) {
+  document.getElementById("sadr").innerText = "Laden-Adresse: "+store.adresse;
+  document.getElementById("sn").innerText = "Laden-Name: "+store.name;
 }
