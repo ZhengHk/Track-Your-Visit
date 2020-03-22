@@ -75,9 +75,9 @@ function signup() {
 
         var user_id = user.uid;
         var storeid = writeStoreData(adr, stname);
-
-        writeUserData(null, email, user_id, name, null, first, storeid);
-
+        if(storeid != null) {
+          writeUserData(null, email, user_id, name, null, first, storeid);
+        }
       }
       else{
         window.alert("Ihre Daten konnten nicht gespeichert werden. Bitte ueberpruefen sie diese in ihrem Akkount!")
