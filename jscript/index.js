@@ -124,20 +124,23 @@ function qrCodeGen() {
 
     userRef.get().then(function(doc) {
       user = doc.data();
+      showQrCode(user);
     }).catch(function(error) {
       console.log(error);
     });
   } else {
     alert("Sitzung ist ungültig!");
-    user = {
+    showQrCode({
       vorname: "Max",
       nachname: "Mustermann",
       email: "max.mustermann@gmail.com",
       telefon: "+49123456789",
       storeId: "123456789"
-    };
+    });
   }
+}
 
+function showQrCode(user) {
   document.getElementById("user_greeting").innerText = "Hallo " + user.vorname + "!";
   document.getElementById("user_data").innerHTML =
       "<table>" +
@@ -159,5 +162,5 @@ function qrCodeGen() {
       "</tr>" +
       "<table>";
   const qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + user.storeId;
-  document.getElementById("qr_code").setAttribute("src", qrUrl)
+  document.getElementById("qr_code").setAttribute("src", qrUrl);
 }
