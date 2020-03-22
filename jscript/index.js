@@ -203,46 +203,45 @@ function update() {
 
   userRef.get().then(function(doc) {
     user = doc.data();
+    if (user != null) {
+      const uid = user.uid;
+      if(email !== ""){
+        db.collection("users").doc(""+uid).update({
+          email: email
+        });
+      }
+      if(first !== ""){
+        db.collection("users").doc(""+uid).update({
+          vorname: first
+        });
+      }
+      if(name !== ""){
+        db.collection("users").doc(""+uid).update({
+          nachname: name
+        });
+      }
+      if(tele !== ""){
+        db.collection("users").doc(""+uid).update({
+          telefon: tele
+        });
+      }
+
+      var stid = user.storeId;
+      if(stname !== ""){
+        db.collection("stors").doc(""+stid).update({
+          name: stname
+        });
+      }
+      if(adr !== ""){
+        db.collection("stores").doc(""+stid).update({
+          adresse: adr
+        });
+      }
+    }
+
   }).catch(function(error) {
     console.log(error);
   });
-
-  if (user != null) {
-    const uid = user.uid;
-    if(email !== ""){
-      db.collection("users").doc(""+uid).update({
-        email: email
-      });
-    }
-    if(first !== ""){
-      db.collection("users").doc(""+uid).update({
-        vorname: first
-      });
-    }
-    if(name !== ""){
-      db.collection("users").doc(""+uid).update({
-        nachname: name
-      });
-    }
-    if(tele !== ""){
-      db.collection("users").doc(""+uid).update({
-        telefon: tele
-      });
-    }
-
-    var stid = user.storeId;
-    if(stname !== ""){
-      db.collection("stors").doc(""+stid).update({
-        name: stname
-      });
-    }
-    if(adr !== ""){
-      db.collection("stores").doc(""+stid).update({
-        adresse: adr
-      });
-    }
-  }
-
 }
 
 function updateDatabase(adr, mail, userId, name, tele, vorn, sadr, sn) {
