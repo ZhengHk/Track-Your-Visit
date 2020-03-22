@@ -11,6 +11,13 @@
     <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-auth.js"></script>
+
+    <h2 id="user_greeting"></h2>
+    <h3>Deine Daten</h3>
+    <p id="user_data"></p>
+    <h3>Dein QR-Code</h3>
+    <img id="qr_code">
+
     <script>
         // Your web app's Firebase configuration
         const firebaseConfig = {
@@ -30,21 +37,48 @@
         const db = firebase.firestore();
 
         var user = firebase.auth().currentUser;
-        if (user == null) {
+        if (user != null) {
+            const uid = user.uid;
+            const userRef = db.collection("users").doc(uid + "");
+
+            userRef.get().then(function(doc) {
+                user = doc.data();
+            }).catch(function(error) {
+                console.log(error);
+            });
+        } else {
             alert("Sitzung ist ungültig!");
+            user = {
+                vorname: "Max",
+                nachname: "Mustermann",
+                email: "max.mustermann@gmail.com",
+                telefon: "+49123456789",
+                storeId: "123456789"
+            };
         }
 
-        const uid = user.uid;
-        const userRef = db.collection("users").doc(uid + "");
-
-        userRef.get().then(function(doc) {
-            user = doc.data();
-        }).catch(function(error) {
-            console.log(error);
-        });
-
-        document.getElementById("user_greeting").value = "Hallo " + user.vorname;
+        document.getElementById("user_greeting").innerText = "Hallo " + user.vorname + "!";
+        document.getElementById("user_data").innerHTML =
+            "<table>" +
+                "<tr>" +
+                    "<td>Vorname</td>" +
+                    "<td>" + user.vorname + "</td>" +
+                "</tr>" +
+                "<tr>" +
+                    "<td>Nachname</td>" +
+                    "<td>" + user.nachname + "</td>" +
+                "</tr>" +
+                "<tr>" +
+                    "<td>E-Mail</td>" +
+                    "<td>" + user.email + "</td>" +
+                "</tr>" +
+                "<tr>" +
+                    "<td>Telefon</td>" +
+                    "<td>" + user.telefon + "</td>" +
+                "</tr>" +
+            "<table>";
+        const qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + user.storeId;
+        document.getElementById("qr_code").setAttribute("src", qrUrl)
     </script>
-    <h2 id="user_greeting"></h2>
 </body>
 </html>
