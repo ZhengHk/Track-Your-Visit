@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Track Your Visits</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="qr.css">
+</head>
+<body>
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-auth.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAggaasRuzPVj-RMojRTi3VXNXcgoCKCdY",
+            authDomain: "track-your-visits-app.firebaseapp.com",
+            databaseURL: "https://track-your-visits-app.firebaseio.com",
+            projectId: "track-your-visits-app",
+            storageBucket: "track-your-visits-app.appspot.com",
+            messagingSenderId: "133441803557",
+            appId: "1:133441803557:web:fe2ef583f11d49f54376cc",
+            measurementId: "G-N0R7JB4B13"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+        const db = firebase.firestore();
+
+        var user = firebase.auth().currentUser;
+        if (user == null) {
+            alert("Sitzung ist ungültig!");
+        }
+
+        const uid = user.uid;
+        const userRef = db.collection("users").doc(uid + "");
+
+        userRef.get().then(function(doc) {
+            user = doc.data();
+        }).catch(function(error) {
+            console.log(error);
+        });
+
+        document.getElementById("user_greeting").value = "Hallo " + user.vorname;
+    </script>
+    <h2 id="user_greeting"></h2>
+</body>
+</html>
