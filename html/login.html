@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Firebase Login</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="../css/loginStyle.css" />
+</head>
+<body>
+
+<div id="login_div" class="main-div">
+    <h3>TrackUrVisits</h3>
+    <input type="email" placeholder="Email..." id="email_field" />
+    <input type="password" placeholder="Password..." id="password_field" />
+
+    <button onclick="login()">Login</button>
+    <br>
+    <button onclick="goToSignup()">SignUp</button>
+</div>
+
+<div id="user_div" class="loggedin-div">
+    <h3>Welcome User</h3>
+    <p id="user_para">Welcome to Firebase web login Example. You're currently logged in.</p>
+    <button onclick="logout()">Logout</button>
+</div>
+
+<div id="signup_div" class="signup-div">
+    <h3>Store-SignUp</h3>
+    <input type="vorname" placeholder="Vorname" id="first_name"/>
+    <input type="name" placeholder="Nachname" id="last_name"/>
+    <input type="email" placeholder="Email..." id="signup_email_field" />
+    <br>
+    <input type="password" placeholder="Passwort..." id="signup_password_field" />
+    <input type="password" placeholder="Password wiederholen..." id="repeat_password_field" />
+    <br>
+    <input type="storeadress" placeholder="Laden-Adresse" id="adress"/>
+    <input type="storename" placeholder="Laden-Name" id="store_name"/>
+    <button onclick="signup()">SignUp</button>
+    <div class="white_space">
+
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-auth.js"></script>
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyAggaasRuzPVj-RMojRTi3VXNXcgoCKCdY",
+        authDomain: "track-your-visits-app.firebaseapp.com",
+        databaseURL: "https://track-your-visits-app.firebaseio.com",
+        projectId: "track-your-visits-app",
+        storageBucket: "track-your-visits-app.appspot.com",
+        messagingSenderId: "133441803557",
+        appId: "1:133441803557:web:fe2ef583f11d49f54376cc",
+        measurementId: "G-N0R7JB4B13"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+</script>
+<script src="../jscript/index.js"></script>
+
+</body>
+</html>
