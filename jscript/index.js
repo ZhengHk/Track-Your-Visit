@@ -152,6 +152,9 @@ function showQrCode(user) {
   document.getElementById("em").innerText = "Email: "+user.email;
   document.getElementById("tele").innerText = "Telefon: "+user.telefon;
 
+  //document.getElementById("sadr").innerText = ""+;
+  //document.getElementById("").innerText = ""+;
+
   const qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + user.storeId;
   document.getElementById("qr_code").setAttribute("src", qrUrl);
 
@@ -177,4 +180,9 @@ function showStoreInfo(db, user) {
 function showStoreInfo2(store) {
   document.getElementById("adress1").innerText = store.adresse;
   document.getElementById("store_name1").innerText = store.name;
+}
+
+function showStoreData(store) {
+  document.getElementById("sadr").innerText = "Laden-Adresse: "+store.adresse;
+  document.getElementById("sn").innerText = "Laden-Name: "+store.name;
 }
