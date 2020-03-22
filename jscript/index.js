@@ -142,7 +142,16 @@ function qrCodeGen() {
 
 function showQrCode(user) {
   document.getElementById("user_greeting").innerText = "Hallo " + user.vorname + "!";
-  document.getElementById("user_data").innerHTML =
+  document.getElementById("vorn").innerText = "Vorname: "+user.vorname;
+  document.getElementById("nachn").innerText = "Nachname: "+user.nachname;
+  document.getElementById("em").innerText = "Email: "+user.email;
+  document.getElementById("tele").innerText = "Telefon: "+user.telefon;
+
+  //document.getElementById("sadr").innerText = ""+;
+  //document.getElementById("").innerText = ""+;
+
+
+  /*document.getElementById("user_data").innerHTML =
       "<table>" +
       "<tr>" +
       "<td>Vorname</td>" +
@@ -160,7 +169,7 @@ function showQrCode(user) {
       "<td>Telefon</td>" +
       "<td>" + user.telefon + "</td>" +
       "</tr>" +
-      "<table>";
+      "<table>";*/
   const qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + user.storeId;
   document.getElementById("qr_code").setAttribute("src", qrUrl);
 
