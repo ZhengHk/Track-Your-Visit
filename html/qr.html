@@ -19,21 +19,6 @@
     <img id="qr_code">
 
     <script>
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyAggaasRuzPVj-RMojRTi3VXNXcgoCKCdY",
-            authDomain: "track-your-visits-app.firebaseapp.com",
-            databaseURL: "https://track-your-visits-app.firebaseio.com",
-            projectId: "track-your-visits-app",
-            storageBucket: "track-your-visits-app.appspot.com",
-            messagingSenderId: "133441803557",
-            appId: "1:133441803557:web:fe2ef583f11d49f54376cc",
-            measurementId: "G-N0R7JB4B13"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
-
         const db = firebase.firestore();
 
         var user = firebase.auth().currentUser;

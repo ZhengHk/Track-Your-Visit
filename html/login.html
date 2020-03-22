@@ -4,6 +4,7 @@
     <title>Firebase Login</title>
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
     <link rel="stylesheet" href="../css/loginStyle.css" />
+    <link rel="stylesheet" type="text/css" href="qr.css">
 </head>
 <body>
 
@@ -18,9 +19,12 @@
 </div>
 
 <div id="user_div" class="loggedin-div">
-    <h3>Welcome User</h3>
-    <p id="user_para">Welcome to Firebase web login Example. You're currently logged in.</p>
-    <button onclick="logout()">Logout</button>
+    <h2 id="user_greeting"></h2>
+    <h3>Deine Daten</h3>
+    <p id="user_data"></p>
+    <h3>Dein QR-Code</h3>
+    <img id="qr_code">
+
 </div>
 
 <div id="signup_div" class="signup-div">

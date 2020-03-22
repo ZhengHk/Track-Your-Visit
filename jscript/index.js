@@ -12,8 +12,8 @@ firebase.auth().onAuthStateChanged(function(user) {
     if(user != null){
 
       var email_id = user.email;
-      document.getElementById("user_para").innerHTML = "Welcome User : " + email_id;
-
+      //document.getElementById("user_para").innerHTML = "Welcome User : " + email_id;
+      qrCodeGen();
     }
 
   } else {
@@ -112,4 +112,52 @@ function writeStoreData(adr, n) {
     adresse: adr,
     name: n
   })
+}
+
+function qrCodeGen() {
+  const db = firebase.firestore();
+
+  var user = firebase.auth().currentUser;
+  if (user != null) {
+    const uid = user.uid;
+    const userRef = db.collection("users").doc(uid + "");
+
+    userRef.get().then(function(doc) {
+      user = doc.data();
+    }).catch(function(error) {
+      console.log(error);
+    });
+  } else {
+    alert("Sitzung ist ungültig!");
+    user = {
+      vorname: "Max",
+      nachname: "Mustermann",
+      email: "max.mustermann@gmail.com",
+      telefon: "+49123456789",
+      storeId: "123456789"
+    };
+  }
+
+  document.getElementById("user_greeting").innerText = "Hallo " + user.vorname + "!";
+  document.getElementById("user_data").innerHTML =
+      "<table>" +
+      "<tr>" +
+      "<td>Vorname</td>" +
+      "<td>" + user.vorname + "</td>" +
+      "</tr>" +
+      "<tr>" +
+      "<td>Nachname</td>" +
+      "<td>" + user.nachname + "</td>" +
+      "</tr>" +
+      "<tr>" +
+      "<td>E-Mail</td>" +
+      "<td>" + user.email + "</td>" +
+      "</tr>" +
+      "<tr>" +
+      "<td>Telefon</td>" +
+      "<td>" + user.telefon + "</td>" +
+      "</tr>" +
+      "<table>";
+  const qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + user.storeId;
+  document.getElementById("qr_code").setAttribute("src", qrUrl)
 }
