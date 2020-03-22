@@ -193,21 +193,20 @@ function showStoreData(store) {
 }
 
 function update() {
-  var email = document.getElementById("signup_email_field1").value;
-  var first = document.getElementById("first_name1").value;
-  var name = document.getElementById("last_name1").value;
-  var tele = document.getElementById("telefon_field").value;
-  var stname = document.getElementById("store_name1").value;
-  var adr = document.getElementById("adress1").value;
+  const email = document.getElementById("signup_email_field1").value;
+  const first = document.getElementById("first_name1").value;
+  const name = document.getElementById("last_name1").value;
+  const tele = document.getElementById("telefon_field").value;
+  const stname = document.getElementById("store_name1").value;
+  const adr = document.getElementById("adress1").value;
 
   var fbUser = firebase.auth().currentUser;
   const db = firebase.firestore();
   const uid = fbUser.uid;
   const userRef = db.collection("users").doc(uid + "");
-  var user;
 
   userRef.get().then(function(doc) {
-    user = doc.data();
+    const user = doc.data();
     if (user != null) {
       if(email !== ""){
         db.collection("users").doc(""+uid).update({
