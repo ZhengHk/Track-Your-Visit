@@ -74,8 +74,10 @@ function signup() {
       if(user != null){
 
         var user_id = user.uid;
-        writeUserData(null, email, user_id, name, null, first);
-        writeStoreData(adr, stname);
+        var storeid = writeStoreData(adr, stname);
+
+        writeUserData(null, email, user_id, name, null, first, storeid);
+
       }
       else{
         window.alert("Ihre Daten konnten nicht gespeichert werden. Bitte ueberpruefen sie diese in ihrem Akkount!")
@@ -93,7 +95,7 @@ function signup() {
 
 }
 
-function writeUserData(adr, mail, userId, name, tele, vorn) {
+function writeUserData(adr, mail, userId, name, tele, vorn, storeid) {
   const db = firebase.firestore();
   db.collection("users").doc(userId).set({
     adresse: adr,
@@ -101,7 +103,8 @@ function writeUserData(adr, mail, userId, name, tele, vorn) {
     id: userId,
     nachname: name,
     telefon: tele,
-    vorname: vorn
+    vorname: vorn,
+    storeId: storeid
   });
 
 }
@@ -111,6 +114,8 @@ function writeStoreData(adr, n) {
   db.collection("stores").add({
     adresse: adr,
     name: n
+  }).then(function (result) {
+        return result.uid;
   })
 }
 
@@ -178,8 +183,8 @@ function showStoreInfo(db, user) {
 }
 
 function showStoreInfo2(store) {
-  document.getElementById("adress1").innerText = store.adresse;
-  document.getElementById("store_name1").innerText = store.name;
+  document.getElementById("sadr").innerText = store.adresse;
+  document.getElementById("sn").innerText = store.name;
 }
 
 function showStoreData(store) {
@@ -208,21 +213,25 @@ function update() {
         db.collection("users").doc(""+uid).update({
           email: email
         });
+        document.getElementById("signup_email_field1").value = "";
       }
       if(first !== ""){
         db.collection("users").doc(""+uid).update({
           vorname: first
         });
+        document.getElementById("first_name1").value = "";
       }
       if(name !== ""){
         db.collection("users").doc(""+uid).update({
           nachname: name
         });
+        document.getElementById("last_name1").value = "";
       }
       if(tele !== ""){
         db.collection("users").doc(""+uid).update({
           telefon: tele
         });
+        document.getElementById("telefon_field").value = "";
       }
 
       var stid = user.storeId;
@@ -241,4 +250,5 @@ function update() {
   }).catch(function(error) {
     console.log(error);
   });
+  qrCodeGen();
 }
