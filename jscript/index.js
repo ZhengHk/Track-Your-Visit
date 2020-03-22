@@ -204,7 +204,6 @@ function update() {
   userRef.get().then(function(doc) {
     user = doc.data();
     if (user != null) {
-      const uid = user.uid;
       if(email !== ""){
         db.collection("users").doc(""+uid).update({
           email: email
@@ -242,9 +241,4 @@ function update() {
   }).catch(function(error) {
     console.log(error);
   });
-}
-
-function updateDatabase(adr, mail, userId, name, tele, vorn, sadr, sn) {
-  writeUserData(adr, mail, userId, name, tele, vorn);
-  writeStoreData(sadr, sn);
 }
