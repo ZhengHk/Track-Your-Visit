@@ -256,7 +256,7 @@ function update() {
 
       var stid = user.storeId;
       if(stname !== ""){
-        db.collection("stors").doc(""+stid).update({
+        db.collection("stores").doc(""+stid).update({
           name: stname
         });
       }
