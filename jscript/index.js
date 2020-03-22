@@ -165,8 +165,7 @@ function showQrCode(user) {
 
   // <a id="download" href="a.jpg" download="a.jpg">Download</a>
   var downloadButton = document.createElement("a");
-  downloadButton.setAttribute("href", "qrUrl");
-  downloadButton.setAttribute("download", qrUrl);
+  downloadButton.setAttribute("href", qrUrl.replace("size=150x150", "size=1000x1000"));
   downloadButton.innerHTML = "QR-Code herunterladen";
   document.getElementById("qr_code_download").append(downloadButton);
 }
