@@ -15,8 +15,16 @@ input, button {
     height: 20%;
 }
 
-.main-div, .loggedin-div {
+.main-div {
     width: 20%;
+    margin: 0px auto;
+    margin-top: 150px;
+    padding: 20px;
+    display: none;
+}
+
+.loggedin-div {
+    width: 40%;
     margin: 0px auto;
     margin-top: 150px;
     padding: 20px;
@@ -31,7 +39,7 @@ input, button {
     display: none;
 }
 
-.main-div input, .signup-div input {
+.main-div input, .signup-div input, .loggedin-div input {
     display: block;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -45,7 +53,7 @@ input, button {
     -moz-transition: 0.3s;
 }
 
-.main-div input:focus, .signup-div input:focus{
+.main-div input:focus, .signup-div input:focus, .loggedin-div input:focus{
     border: 1px solid #777;
 }
 
